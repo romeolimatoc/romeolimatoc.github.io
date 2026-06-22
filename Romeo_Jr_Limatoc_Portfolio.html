@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Romeo Jr. Limatoc — Remote Professional Portfolio</title>
+  <meta name="description" content="Portfolio of Romeo Jr. Limatoc — Senior Outreach Specialist & Account Manager with 10+ years of remote professional experience." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark: #085041;
+      --green-mid: #0F6E56;
+      --green-light: #5DCAA5;
+      --green-pale: #E1F5EE;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --border: #e4e4e0;
+      --bg-page: #fafaf8;
+      --bg-surface: #f4f4f0;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 2.5rem 2.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .photo-wrap {
+      flex-shrink: 0;
+    }
+
+    .photo-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid var(--green-light);
+      background: var(--green-pale);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .photo-circle:hover { border-color: var(--green-mid); }
+
+    .photo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      border-radius: 50%;
+    }
+
+    .photo-circle img.loaded { display: block; }
+
+    .photo-initials {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--green-mid);
+      line-height: 1;
+    }
+
+    .photo-hint {
+      font-size: 9px;
+      color: var(--green-mid);
+      margin-top: 4px;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,110,86,0.55);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .photo-circle:hover .photo-overlay { opacity: 1; }
+
+    .photo-overlay svg {
+      width: 24px;
+      height: 24px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #photo-input { display: none; }
+
+    .hero-info { flex: 1; }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--green-mid);
+    }
+
+    .hero-title {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .contact-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+
+    .contact-pill:hover { border-color: var(--green-light); color: var(--green-mid); }
+
+    .contact-pill svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--green-mid);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* STATS */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat {
+      padding: 1.25rem 2rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--green-mid);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* BODY LAYOUT */
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+    }
+
+    .main { padding: 2rem 2rem 2rem 2.5rem; border-right: 1px solid var(--border); }
+    .sidebar { padding: 2rem; }
+
+    /* SECTION LABELS */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* EXPERIENCE */
+    .exp-item {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .exp-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      gap: 8px;
+    }
+
+    .exp-role {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .exp-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .exp-company {
+      font-size: 13px;
+      color: var(--green-mid);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+    }
+
+    .exp-bullets li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 5px;
+    }
+
+    .exp-bullets li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--green-light);
+      font-size: 12px;
+    }
+
+    /* SIDEBAR ELEMENTS */
+    .sidebar-section { margin-bottom: 2rem; }
+
+    .summary-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .highlight-box {
+      background: var(--green-pale);
+      border-left: 3px solid var(--green-mid);
+      padding: 12px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 1.25rem;
+    }
+
+    .highlight-box p {
+      font-size: 13px;
+      color: var(--green-dark);
+      line-height: 1.6;
+    }
+
+    .highlight-box strong { color: var(--green-mid); }
+
+    /* SKILLS */
+    .skill-group { margin-bottom: 1.25rem; }
+
+    .skill-group-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 7px;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .tag.accent {
+      background: var(--green-pale);
+      color: var(--green-mid);
+      border-color: var(--green-light);
+    }
+
+    /* EDUCATION */
+    .edu-item { margin-bottom: 1rem; }
+
+    .edu-degree { font-size: 14px; font-weight: 500; }
+
+    .edu-school {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* STRENGTHS LIST */
+    .strength-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .strength-item svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--green-mid);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    .port-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2.5rem;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      body { padding: 0.75rem 0.5rem 3rem; }
+      .hero { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+      .hero-name { font-size: 30px; }
+      .stat-bar { grid-template-columns: repeat(3, 1fr); }
+      .stat { padding: 1rem; }
+      .stat-num { font-size: 24px; }
+      .body-grid { grid-template-columns: 1fr; }
+      .main { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem; }
+      .sidebar { padding: 1.5rem; }
+      .port-footer { flex-direction: column; gap: 6px; text-align: center; }
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .card { box-shadow: none; border: none; border-radius: 0; }
+      .photo-overlay, .photo-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="photo-wrap">
+      <div class="photo-circle" id="photoCircle" title="Click to upload your photo">
+        <img id="photoImg" alt="Romeo Jr. Limatoc" />
+        <span class="photo-initials" id="photoInitials">RJ</span>
+        <span class="photo-hint" id="photoHint">Upload photo</span>
+        <div class="photo-overlay">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+      </div>
+      <input type="file" id="photo-input" accept="image/*" />
+    </div>
+
+    <div class="hero-info">
+      <p class="hero-eyebrow">Remote Professional · Portfolio</p>
+      <h1 class="hero-name">Romeo Jr.<br><em>Limatoc</em></h1>
+      <p class="hero-title">Senior Outreach Specialist &amp; Account Manager · Davao City, Philippines</p>
+      <div class="hero-contact">
+        <a href="mailto:igwadrome06@gmail.com" class="contact-pill">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          igwadrome06@gmail.com
+        </a>
+        <a href="tel:+639465981302" class="contact-pill">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          +63 946 598 1302
+        </a>
+        <span class="contact-pill">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Davao City, Philippines
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stat-bar">
+    <div class="stat">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Years of remote experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Client accounts managed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Industries served</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body-grid">
+
+    <!-- MAIN: EXPERIENCE -->
+    <main class="main">
+      <p class="section-label">Experience</p>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-role">Senior Outreach Specialist</div>
+          <span class="exp-date">Jan 2023 – May 2026</span>
+        </div>
+        <p class="exp-company">Construction Industry · Remote</p>
+        <ul class="exp-bullets">
+          <li>Generated qualified business leads through Google, Yelp, company websites, and The Blue Book.</li>
+          <li>Maintained daily spreadsheet accuracy for all client records across a high-volume pipeline.</li>
+          <li>Built lasting business relationships through structured email outreach and organized follow-ups.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-role">Account Manager</div>
+          <span class="exp-date">Apr 2024 – Aug 2025</span>
+        </div>
+        <p class="exp-company">Zentist · Remote</p>
+        <ul class="exp-bullets">
+          <li>Owned onboarding and full setup for 20+ client accounts simultaneously.</li>
+          <li>Resolved urgent client issues as the primary point of remote contact.</li>
+          <li>Led weekly Zoom check-ins and authored regular performance reports to drive retention.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-role">Customer Service Representative</div>
+          <span class="exp-date">Apr 2018 – Dec 2023</span>
+        </div>
+        <p class="exp-company">Concentrix Convergys Inc. · Hybrid</p>
+        <ul class="exp-bullets">
+          <li>Handled high call volumes with a strong first-contact resolution rate.</li>
+          <li>Updated billing and account records efficiently using internal support tools.</li>
+          <li>Consistently recognized by management for top-tier customer service scores.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-role">Outbound Sales Representative</div>
+          <span class="exp-date">Aug 2015 – Nov 2017</span>
+        </div>
+        <p class="exp-company">Diablo · Remote</p>
+        <ul class="exp-bullets">
+          <li>Qualified new leads weekly through structured outbound calling campaigns.</li>
+          <li>Maintained consistent follow-up cadences to advance prospects through the sales cycle.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-role">Data Encoder / Processor</div>
+          <span class="exp-date">Nov 2013 – Jan 2014</span>
+        </div>
+        <p class="exp-company">Philippine Statistics Authority</p>
+        <ul class="exp-bullets">
+          <li>Processed and entered large volumes of data into central systems with speed and accuracy.</li>
+          <li>Handled confidential records and performed daily quality checks to prevent errors.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-role">Administrative Head</div>
+          <span class="exp-date">Jan 2011 – Aug 2013</span>
+        </div>
+        <p class="exp-company">Zaballero Law Office</p>
+        <ul class="exp-bullets">
+          <li>Managed executive calendars, digital filing, and daily office operations.</li>
+          <li>Organized sensitive legal documents and court filings with meticulous attention to detail.</li>
+          <li>Coordinated attorney travel, schedules, and all incoming client communications.</li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <p class="section-label">About</p>
+        <p class="summary-text">Versatile remote professional with over a decade of experience across administrative support, account management, outreach, and customer success — known for clear communication, sharp attention to detail, and fast adaptation to new tools.</p>
+        <div class="highlight-box">
+          <p><strong>Open to remote roles</strong> in VA, account management, outreach, and executive support.</p>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="section-label">Core tools</p>
+        <div class="skill-group">
+          <div class="skill-group-name">CRM &amp; Data</div>
+          <div class="skill-tags">
+            <span class="tag accent">Zoho CRM</span>
+            <span class="tag accent">Google Sheets</span>
+            <span class="tag accent">MS Excel</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Support &amp; Ticketing</div>
+          <div class="skill-tags">
+            <span class="tag">Oracle</span>
+            <span class="tag">Jira</span>
+            <span class="tag">Avaya</span>
+            <span class="tag">Nextiva</span>
+            <span class="tag">GoodData</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Remote Communication</div>
+          <div class="skill-tags">
+            <span class="tag">Slack</span>
+            <span class="tag">Zoom</span>
+            <span class="tag">MS Teams</span>
+            <span class="tag">Discord</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Productivity</div>
+          <div class="skill-tags">
+            <span class="tag">Google Workspace</span>
+            <span class="tag">MS Office</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="section-label">Education</p>
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Arts in Political Science</div>
+          <div class="edu-school">University of Cebu · 2009</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Bachelor of Laws</div>
+          <div class="edu-school">Pagadian Capitol College · Undergraduate</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="section-label">What I do best</p>
+        <div class="strength-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Client onboarding &amp; retention
+        </div>
+        <div class="strength-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Lead generation &amp; outreach
+        </div>
+        <div class="strength-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Executive calendar management
+        </div>
+        <div class="strength-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Data entry &amp; spreadsheet accuracy
+        </div>
+        <div class="strength-item">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Report writing &amp; documentation
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="port-footer">
+    <span>Romeo Jr. R. Limatoc · Davao City, Philippines</span>
+    <span>Available for remote work · igwadrome06@gmail.com</span>
+  </footer>
+
+</div>
+
+<script>
+  const circle = document.getElementById('photoCircle');
+  const input = document.getElementById('photo-input');
+  const img = document.getElementById('photoImg');
+  const initials = document.getElementById('photoInitials');
+  const hint = document.getElementById('photoHint');
+
+  circle.addEventListener('click', () => input.click());
+
+  input.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      img.src = e.target.result;
+      img.classList.add('loaded');
+      initials.style.display = 'none';
+      hint.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+</body>
+</html>
