@@ -424,15 +424,15 @@
   <!-- HERO -->
   <header class="hero">
     <div class="photo-wrap">
-      <div class="photo-circle" id="photoCircle" title="Click to upload your photo">
-        <img id="photoImg" alt="Romeo Jr. Limatoc" />
-        <span class="photo-initials" id="photoInitials">RJ</span>
-        <span class="photo-hint" id="photoHint">Upload photo</span>
-        <div class="photo-overlay">
+      <div class="photo-circle" id="photoCircle">
+        <img id="photoImg" class="loaded" src="IMG_7075 copy.jpg" alt="Romeo Jr. Limatoc" style="display: block;" />
+        <span class="photo-initials" id="photoInitials" style="display: none;">RJ</span>
+        <span class="photo-hint" id="photoHint" style="display: none;">Upload photo</span>
+        <div class="photo-overlay" style="display: none;">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         </div>
       </div>
-      <input type="file" id="photo-input" accept="image/*" />
+      <input type="file" id="photo-input" accept="image/*" style="display: none;" />
     </div>
 
     <div class="hero-info">
